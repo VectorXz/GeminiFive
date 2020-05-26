@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini Add Page</title>
+</head>
+<body>
+    <h1>Add Form</h1>
+
+    <form th:action="@{/add}" th:object="${addForm}" method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autofocus="autofocus"/><br/>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"/><br/>
+        <label for="username">Name</label>
+        <input type="text" id="name" name="name"/><br/>
+        <label for="username">Surname</label>
+        <input type="text" id="surname" name="surname"/><br/>
+        <label for="username">Email</label>
+        <input type="text" id="email" name="email"/><br/>
+        <label for="username">Phone number</label>
+        <input type="text" id="phoneno" name="phoneno"/><br/>
+        <label for="username">Address</label>
+        <input type="text" id="address" name="address"/><br/>
+        <label for="username">Aceess level</label>
+        <input type="text" id="accesslevel" name="accesslevel"/><br/>
+        <input type="submit" value="Register"/>
+    </form>
+
+</body>
+</html>
