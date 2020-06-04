@@ -1,4 +1,4 @@
-package com.example.gemini5;
+package com.example.gemini5.Model;
 import javax.persistence.*;
 
 //mark class as an Entity

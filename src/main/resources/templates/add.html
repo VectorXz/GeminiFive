@@ -6,7 +6,6 @@
 </head>
 <body>
     <h1>Add Form</h1>
-
     <form th:action="@{/add}" th:object="${addForm}" method="post">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" autofocus="autofocus"/><br/>
@@ -26,6 +25,5 @@
         <input type="text" id="accesslevel" name="accesslevel"/><br/>
         <input type="submit" value="Register"/>
     </form>
-
 </body>
 </html>

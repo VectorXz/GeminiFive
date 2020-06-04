@@ -1,4 +1,5 @@
 package com.example.gemini5;
+import com.example.gemini5.Model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 
