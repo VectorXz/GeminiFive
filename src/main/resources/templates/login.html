@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Gemini Login Page</title>
@@ -19,13 +19,13 @@
         <div class="col-sm">
             <div class="jumbotron">
                 <div class="text-center">
-                    <img src="/static/images/space.png" width="200" height="200" />
+                    <img src="images/space.png" width="200" height="200" />
                     <br />
                     <h1>Login Form</h1>
                     <br/>
-                    <form th:action="@{/login}" th:object="${loginForm}" method="post">
-                        <p th:if="${invalidPassword}" class="text-danger">Invalid password!</p>
-                        <p th:if="${userNotFound}" class="text-danger">User not found!</p>
+                    <form th:action="@{/login}" method="post">
+                        <p th:if="${param.error}" class="text-danger">Invalid password!</p>
+                        <p th:if="${param.logout}">You have been logged out.</p>
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" id="username" name="username" autofocus="autofocus"/>

@@ -4,6 +4,7 @@ import com.example.gemini5.AddForm;
 import com.example.gemini5.Model.User;
 import com.example.gemini5.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,14 @@ public class UserController {
         String email = addForm.getEmail();
         String phoneno = addForm.getPhoneno();
         String address = addForm.getAddress();
-        int accesslevel = addForm.getAccesslevel();
+        String accesslevel = addForm.getAccesslevel();
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
 
         User tmp = new User();
         tmp.setUsername(username);
-        tmp.setPassword(password);
+        tmp.setPassword(hashedPassword);
         tmp.setName(name);
         tmp.setSurname(surname);
         tmp.setEmail(email);

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <!-- Required meta tags -->
@@ -115,7 +116,7 @@
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                <a class="nav-link" th:href="@{/logout}">Sign out</a>
             </li>
         </ul>
     </nav>
@@ -171,7 +172,7 @@
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-               <h1>Content</h1>
+               <h1>Astronomer Home</h1>
             </main>
         </div> <!-- row -->
     </div> <!-- container fluid -->

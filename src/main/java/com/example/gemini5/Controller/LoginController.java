@@ -23,11 +23,13 @@ public class LoginController {
         return "login";
     }
 
+    /*
     @RequestMapping(value = "/homeast", method = RequestMethod.GET)
     public String getHomeAst() {
         // return login.html
         return "homeast";
     }
+     */
 
     @RequestMapping(value = "/homesco", method = RequestMethod.GET)
     public String getHomeSco() {
@@ -35,7 +37,7 @@ public class LoginController {
         return "homesco";
     }
 
-    //checking for login credentials
+    /*/checking for login credentials
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute(name="loginForm") LoginForm loginForm, Model model) {
         String username = loginForm.getUsername();
@@ -54,4 +56,5 @@ public class LoginController {
         }
         return "login";
     }
+    */
 }

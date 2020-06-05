@@ -7,7 +7,7 @@ public class AddForm {
     private String password;
     private String name;
     private String surname;
-    private int accesslevel;
+    private String accesslevel;
     private String phoneno;
     private String email;
     private String address;
@@ -44,11 +44,11 @@ public class AddForm {
         this.surname = surname;
     }
 
-    public int getAccesslevel() {
+    public String getAccesslevel() {
         return accesslevel;
     }
 
-    public void setAccesslevel(int accesslevel) {
+    public void setAccesslevel(String accesslevel) {
         this.accesslevel = accesslevel;
     }
 

@@ -16,6 +16,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <spring-security.version>5.0.6.RELEASE</spring-security.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -34,6 +36,24 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <!-- END HOT RELOAD -->
+        <!-- Spring boot security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- End Spring boot security -->
+        <!-- MYSQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- END MYSQL -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
