@@ -84,7 +84,7 @@
 
         @media (min-width: 768px) {
             [role="main"] {
-                padding-top: 120px;
+                padding-top: 96px;
                 /* Space for fixed navbar */
             }
         }
@@ -120,6 +120,15 @@
         .user-info {
             color: #ffffff;
             padding: 16px;
+        }
+
+        .btn-circle {
+            border-radius: 50%;
+            padding: 3rem;
+        }
+
+        .font-5rem {
+            font-size: 5rem;
         }
     </style>
 
@@ -193,6 +202,21 @@
                        <h1 class="heading-txt">My Science Plan</h1>
                    </div>
                </div>
+                <div class="row mt-5">
+                    <div class="col-4 py-1">
+                        <div class="col content-box py-5 text-center">
+                            <a class="btn btn-dark btn-circle" href="#" role="button"><i class="fas fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-4 py-1" th:each="sciPlan: ${allSciPlans}">
+                        <div class="col content-box py-5 text-center">
+                            <i class="fas fa-scroll font-5rem p-2"></i>
+                            <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>
+                            <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
+                            <a class="stretched-link" th:href="${'viewsciplan/'+sciPlan.getPlanId()}"></a>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div> <!-- row -->
     </div> <!-- container fluid -->
@@ -208,6 +232,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://kit.fontawesome.com/acf242290a.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
