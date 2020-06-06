@@ -56,6 +56,7 @@
 
         .sidebar .nav-link.active {
             color: #ffffff;
+            background-color: rgba(255,255,255,0.2);
         }
 
         .sidebar .nav-link:hover .feather,
@@ -71,6 +72,10 @@
         /*
         * Content
         */
+
+        body {
+            background-color: #eeeeee;
+        }
 
         [role="main"] {
             padding-top: 160px;
@@ -99,6 +104,17 @@
             background: url("/images/sidebar_v2.png") no-repeat;
             background-position: center;
             background-size: cover;
+        }
+
+        .content-box {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .heading-txt {
+            border-left: 6px solid #6846B7;
+            padding-left: 12px;
         }
 
         .user-info {
@@ -132,7 +148,7 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="row">
-                                        John Doe
+                                        [[${#httpServletRequest.remoteUser}]]
                                     </div>
                                     <div class="row">
                                         Astronomer
@@ -171,8 +187,12 @@
                 </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-               <h1>Astronomer Home</h1>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
+               <div class="row">
+                   <div class="col content-box">
+                       <h1 class="heading-txt">My Science Plan</h1>
+                   </div>
+               </div>
             </main>
         </div> <!-- row -->
     </div> <!-- container fluid -->
