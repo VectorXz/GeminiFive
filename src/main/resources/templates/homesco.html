@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -9,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
     <style>
         /*
         * Sidebar
@@ -55,6 +57,7 @@
 
         .sidebar .nav-link.active {
             color: #ffffff;
+            background-color: rgba(255,255,255,0.2);
         }
 
         .sidebar .nav-link:hover .feather,
@@ -71,6 +74,10 @@
         * Content
         */
 
+        body {
+            background-color: #eeeeee;
+        }
+
         [role="main"] {
             padding-top: 160px;
             /* Space for fixed navbar */
@@ -78,7 +85,7 @@
 
         @media (min-width: 768px) {
             [role="main"] {
-                padding-top: 120px;
+                padding-top: 96px;
                 /* Space for fixed navbar */
             }
         }
@@ -100,10 +107,31 @@
             background-size: cover;
         }
 
+        .content-box {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .heading-txt {
+            border-left: 6px solid #6846B7;
+            padding-left: 12px;
+        }
+
         .user-info {
             color: #ffffff;
             padding: 16px;
         }
+
+        .btn-circle {
+            border-radius: 50%;
+            padding: 3rem;
+        }
+
+        .font-5rem {
+            font-size: 5rem;
+        }
+
     </style>
 
     <title>Gemini-5 : Dashboard</title>
@@ -115,7 +143,7 @@
 
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" th:href="@{/logout}">Sign out</a>
         </li>
     </ul>
 </nav>
@@ -131,7 +159,7 @@
                             </div>
                             <div class="col-7">
                                 <div class="row">
-                                    John Doe
+                                    [[${#httpServletRequest.remoteUser}]]
                                 </div>
                                 <div class="row">
                                     Science Observer
@@ -144,25 +172,36 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
-                            <span data-feather="homesco"></span>
-                            Science plans <span class="sr-only">(current)</span>
+                            <span data-feather="home"></span>
+                            Science Plan <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="homesco"></span>
-                            Setting
+                            <span data-feather="home"></span>
+                            Settings
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h1>Science plans</h1>
-            <!-- Retrieve plans from database -->
-
-            <!-- Just for test-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
+            <div class="row">
+                <div class="col content-box">
+                    <h1 class="heading-txt">Awaiting Approval Plan</h1>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-4 p-2" th:each="sciPlan: ${allSciPlans}">
+                    <div class="col content-box py-5 text-center">
+                        <i class="fas fa-scroll font-5rem p-2"></i>
+                        <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>
+                        <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
+                        <a class="stretched-link" th:href="${'viewsciplan/'+sciPlan.getPlanId()}"></a>
+                    </div>
+                </div>
+            </div>
         </main>
     </div> <!-- row -->
 </div> <!-- container fluid -->

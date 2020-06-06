@@ -1,14 +1,17 @@
 package com.example.gemini5.Controller;
 
 import com.example.gemini5.Model.SciencePlan;
+import com.example.gemini5.SciencePlanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private SciencePlanRepository sciPlanRepository;
 
     // Mapping for science observer
     @GetMapping("/homesco/review")
@@ -16,15 +19,18 @@ public class HomeController {
         return "reviewSubmitSci";
     }
 
-    // Mapping for astronomer
-    @GetMapping("/homeast")
-    public String CreatePlanForm(Model model) {
-        model.addAttribute("plan", new SciencePlan());
+    @RequestMapping(value = "/homeast", method = RequestMethod.GET)
+    public String getHomeAst(Model model) {
+        // return login.html
+        model.addAttribute("allSciPlans", sciPlanRepository.findAll());
         return "homeast";
     }
 
-    @PostMapping("/homeast")
-    public String CreatePlanSubmit(@ModelAttribute SciencePlan plan) {
-        return "summary";
+    @RequestMapping(value = "/homesco", method = RequestMethod.GET)
+    public String getHomeSco(Model model) {
+        // return login.html
+        model.addAttribute("allSciPlans", sciPlanRepository.findByStatus("submitted"));
+        return "homesco";
     }
+
 }
