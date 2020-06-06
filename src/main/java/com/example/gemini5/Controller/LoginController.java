@@ -1,14 +1,10 @@
 package com.example.gemini5.Controller;
 
-import com.example.gemini5.Model.SciencePlan;
-import com.example.gemini5.SciencePlanRepository;
-import com.example.gemini5.UserRepository;
+import com.example.gemini5.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {

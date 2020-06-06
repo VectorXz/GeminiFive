@@ -1,4 +1,3 @@
-
 .input-comment input[type=button]{
     float: right;
     margin-top: 1rem;
@@ -63,4 +62,11 @@ input.button4:hover{
         display:block;
         margin:0.2em auto;
     }
+}
+
+.content-box.main-box {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 1rem;
 }

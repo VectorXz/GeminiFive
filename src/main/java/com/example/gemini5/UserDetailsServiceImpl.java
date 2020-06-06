@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import com.example.gemini5.Model.User;
+import com.example.gemini5.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

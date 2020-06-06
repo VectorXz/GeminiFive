@@ -6,8 +6,12 @@ import javax.persistence.*;
 @Table(name = "SciencePlan")
 public class SciencePlan {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     @Column
     private int planId;
+
+    @Column
+    private String planName;
 
     @Column
     private String creator;
@@ -45,6 +49,15 @@ public class SciencePlan {
 
     public void setPlanId(int planId) {
         this.planId = planId;
+    }
+
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 
     public String getCreator() {
@@ -125,5 +138,22 @@ public class SciencePlan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "SciencePlan{" +
+                "planId=" + planId +
+                ", creator='" + creator + '\'' +
+                ", submitter='" + submitter + '\'' +
+                ", funding=" + funding +
+                ", objective='" + objective + '\'' +
+                ", starsSystem='" + starsSystem + '\'' +
+                ", schedule='" + schedule + '\'' +
+                ", telescopeLoc='" + telescopeLoc + '\'' +
+                ", dataProcessingReq='" + dataProcessingReq + '\'' +
+                ", comment='" + comment + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

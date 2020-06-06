@@ -1,4 +1,4 @@
-package com.example.gemini5;
+package com.example.gemini5.Repository;
 
 import com.example.gemini5.Model.SciencePlan;
 import org.springframework.data.repository.CrudRepository;
@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface SciencePlanRepository extends CrudRepository<SciencePlan, Integer> {
-    List<SciencePlan> findByStatus(String status);
+    public List<SciencePlan> findByStatus(String status);
+    public SciencePlan findByPlanId(Integer id);
 }

@@ -205,12 +205,13 @@
                    </div>
                </div>
                 <div class="row mt-5">
-                    <div class="col-4 p-2">
+                    <div class="col-md-4 p-2">
                         <div class="col content-box py-5 text-center h-100">
                             <a class="btn btn-dark btn-circle" href="#" role="button"><i class="fas fa-plus"></i></a>
                         </div>
                     </div>
-                    <div class="col-4 p-2" th:each="sciPlan: ${allSciPlans}">
+                    <!-- For each science plan -->
+                    <div class="col-md-4 p-2" th:each="sciPlan: ${allSciPlans}">
                         <div class="col content-box py-5 text-center">
                             <i class="fas fa-scroll font-5rem p-2"></i>
                             <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>

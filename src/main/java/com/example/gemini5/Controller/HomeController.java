@@ -1,7 +1,6 @@
 package com.example.gemini5.Controller;
 
-import com.example.gemini5.Model.SciencePlan;
-import com.example.gemini5.SciencePlanRepository;
+import com.example.gemini5.Repository.SciencePlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +30,12 @@ public class HomeController {
         // return login.html
         model.addAttribute("allSciPlans", sciPlanRepository.findByStatus("submitted"));
         return "homesco";
+    }
+
+    @GetMapping("/viewsciplan/{id}")
+    public String getSciencePlanById(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("plan", sciPlanRepository.findByPlanId(id));
+        return "viewsciplan";
     }
 
 }
