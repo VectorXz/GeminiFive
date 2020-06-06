@@ -1,11 +1,8 @@
 package com.example.gemini5.Controller;
 
-import com.example.gemini5.LoginForm;
 import com.example.gemini5.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
