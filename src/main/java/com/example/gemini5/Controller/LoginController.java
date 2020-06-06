@@ -1,13 +1,14 @@
 package com.example.gemini5.Controller;
 
-import com.example.gemini5.LoginForm;
+import com.example.gemini5.Model.SciencePlan;
+import com.example.gemini5.SciencePlanRepository;
 import com.example.gemini5.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
@@ -23,19 +24,14 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/homeast", method = RequestMethod.GET)
-    public String getHomeAst() {
-        // return login.html
-        return "homeast";
+    /*
+    @RequestMapping(value="/all", method=RequestMethod.GET)
+    public @ResponseBody Iterable<SciencePlan> getAllSciPlan() {
+        return sciPlanRepository.findAll();
     }
+     */
 
-    @RequestMapping(value = "/homesco", method = RequestMethod.GET)
-    public String getHomeSco() {
-        // return login.html
-        return "homesco";
-    }
-
-    //checking for login credentials
+    /*/checking for login credentials
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute(name="loginForm") LoginForm loginForm, Model model) {
         String username = loginForm.getUsername();
@@ -54,4 +50,5 @@ public class LoginController {
         }
         return "login";
     }
+    */
 }

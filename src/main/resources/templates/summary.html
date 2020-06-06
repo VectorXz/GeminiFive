@@ -1,7 +1,6 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         /*
         * Sidebar
@@ -57,7 +56,6 @@
 
         .sidebar .nav-link.active {
             color: #ffffff;
-            background-color: rgba(255,255,255,0.2);
         }
 
         .sidebar .nav-link:hover .feather,
@@ -74,10 +72,6 @@
         * Content
         */
 
-        body {
-            background-color: #eeeeee;
-        }
-
         [role="main"] {
             padding-top: 160px;
             /* Space for fixed navbar */
@@ -85,7 +79,7 @@
 
         @media (min-width: 768px) {
             [role="main"] {
-                padding-top: 96px;
+                padding-top: 120px;
                 /* Space for fixed navbar */
             }
         }
@@ -107,43 +101,24 @@
             background-size: cover;
         }
 
-        .content-box {
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            padding: 12px;
-        }
-
-        .heading-txt {
-            border-left: 6px solid #6846B7;
-            padding-left: 12px;
-        }
-
         .user-info {
             color: #ffffff;
             padding: 16px;
         }
-
-        .btn-circle {
-            border-radius: 50%;
-            padding: 3rem;
-        }
-
-        .font-5rem {
-            font-size: 5rem;
-        }
-
     </style>
 
-    <title>Gemini-5 : Dashboard</title>
+    <title>Summary of science plan</title>
 </head>
-
-<body>
+<!--<body>-->
+<!--<h1>Review Submited Science Plan</h1>-->
+<!--</body><-->
+<body th:object="${plan}">
 <nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img src="/images/logo.png" class="mx-auto d-block" width="100" /></a>
 
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" th:href="@{/logout}">Sign out</a>
+            <a class="nav-link" href="#">Sign out</a>
         </li>
     </ul>
 </nav>
@@ -159,7 +134,7 @@
                             </div>
                             <div class="col-7">
                                 <div class="row">
-                                    [[${#httpServletRequest.remoteUser}]]
+                                    John Doe
                                 </div>
                                 <div class="row">
                                     Science Observer
@@ -172,35 +147,37 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            Science Plan <span class="sr-only">(current)</span>
+                            <span data-feather="homesco"></span>
+                            Science plans <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="home"></span>
-                            Settings
+                            <span data-feather="homesco"></span>
+                            Setting
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1>Review submited science plan</h1>
+            <!-- Retrieve plans from database -->
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
-            <div class="row">
-                <div class="col content-box">
-                    <h1 class="heading-txt">Awaiting Approval Plan</h1>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-4 p-2" th:each="sciPlan: ${allSciPlans}">
-                    <div class="col content-box py-5 text-center">
-                        <i class="fas fa-scroll font-5rem p-2"></i>
-                        <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>
-                        <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
-                        <a class="stretched-link" th:href="${'viewsciplan/'+sciPlan.getPlanId()}"></a>
-                    </div>
-                </div>
+            <!-- Just for test-->
+            <!-- plan is the plan object retrieve after clicking main page-->
+
+            <p th:text="'Name: ' + ${plan.name}"></p>
+            <p th:text="'Funding: ' + ${plan.funding}"></p>
+            <p th:text="'Objective: ' + ${plan.objective}"></p>
+            <p th:text="'Star System: ' + ${plan.starsystem}"></p>
+            <p th:text="'Date: ' + ${plan.date}"></p>
+            <p th:text="'Time: ' + ${plan.time}"></p>
+            <p th:text="'Location: ' + ${plan.location}"></p>
+            <p th:text="'Requirement: ' + ${plan.requirement}"></p>
+            <p th:text="'Image Processing: ' + ${plan.imageprocessing}"></p>
+            <div>
+                <input type="button" onclick="">
             </div>
         </main>
     </div> <!-- row -->

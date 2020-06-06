@@ -26,7 +26,7 @@ public class User
     @Column
     private String surname;
     @Column
-    private int accesslevel;
+    private String accessLevel;
     @Column
     private String phoneno;
     //defining email as column name
@@ -75,12 +75,12 @@ public class User
         this.surname = surname;
     }
 
-    public int getAccesslevel() {
-        return accesslevel;
+    public String getAccesslevel() {
+        return accessLevel;
     }
 
-    public void setAccesslevel(int accesslevel) {
-        this.accesslevel = accesslevel;
+    public void setAccesslevel(String accesslevel) {
+        this.accessLevel = accesslevel;
     }
 
     public String getPhoneno() {

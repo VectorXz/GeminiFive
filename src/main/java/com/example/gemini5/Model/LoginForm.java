@@ -1,4 +1,4 @@
-package com.example.gemini5;
+package com.example.gemini5.Model;
 
 public class LoginForm {
     private String username;
