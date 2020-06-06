@@ -1,6 +1,6 @@
 package com.example.gemini5.Controller;
 
-import com.example.gemini5.AddForm;
+import com.example.gemini5.Model.AddForm;
 import com.example.gemini5.Model.User;
 import com.example.gemini5.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
