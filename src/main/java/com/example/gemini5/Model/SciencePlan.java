@@ -1,31 +1,73 @@
 package com.example.gemini5.Model;
 
-import java.util.Date;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "SciencePlan")
 public class SciencePlan {
-    private String name;
-    private Double funding;
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column
+    private int planId;
+
+    @Column
+    private String creator;
+
+    @Column
+    private String submitter;
+
+    @Column
+    private float funding;
+
+    @Column
     private String objective;
-    private String starsystem;
-    private String date; // Not sure about this
-    private String time;
-    private String location;
-    private String requirement;
-    private String imageprocessing;
 
-    public String getName() {
-        return name;
+    @Column
+    private String starsSystem;
+
+    @Column
+    private String schedule;
+
+    @Column
+    private String telescopeLoc;
+
+    @Column
+    private String dataProcessingReq;
+
+    @Column
+    private String comment;
+
+    @Column
+    private String status;
+
+    public int getPlanId() {
+        return planId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlanId(int planId) {
+        this.planId = planId;
     }
 
-    public Double getFunding() {
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public float getFunding() {
         return funding;
     }
 
-    public void setFunding(Double funding) {
+    public void setFunding(float funding) {
         this.funding = funding;
     }
 
@@ -37,51 +79,51 @@ public class SciencePlan {
         this.objective = objective;
     }
 
-    public String getStarsystem() {
-        return starsystem;
+    public String getStarsSystem() {
+        return starsSystem;
     }
 
-    public void setStarsystem(String starsystem) {
-        this.starsystem = starsystem;
+    public void setStarsSystem(String starsSystem) {
+        this.starsSystem = starsSystem;
     }
 
-    public String getDate() {
-        return date;
+    public String getSchedule() {
+        return schedule;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 
-    public String getTime() {
-        return time;
+    public String getTelescopeLoc() {
+        return telescopeLoc;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTelescopeLoc(String telescopeLoc) {
+        this.telescopeLoc = telescopeLoc;
     }
 
-    public String getLocation() {
-        return location;
+    public String getDataProcessingReq() {
+        return dataProcessingReq;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDataProcessingReq(String dataProcessingReq) {
+        this.dataProcessingReq = dataProcessingReq;
     }
 
-    public String getRequirement() {
-        return requirement;
+    public String getComment() {
+        return comment;
     }
 
-    public void setRequirement(String requirement) {
-        this.requirement = requirement;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getImageprocessing() {
-        return imageprocessing;
+    public String getStatus() {
+        return status;
     }
 
-    public void setImageprocessing(String imageprocessing) {
-        this.imageprocessing = imageprocessing;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
