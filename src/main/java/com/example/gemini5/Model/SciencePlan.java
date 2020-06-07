@@ -1,15 +1,17 @@
 package com.example.gemini5.Model;
 
 import edu.gemini.app.ocs.model.BaseSciencePlan;
+import edu.gemini.app.ocs.model.DataProcRequirement;
 import jparsec.ephem.Target;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "SciencePlan")
 public class SciencePlan {
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
     private int planId;
 
@@ -23,7 +25,7 @@ public class SciencePlan {
     private String submitter;
 
     @Column
-    private float funding;
+    private double funding;
 
     @Column
     private String objective;
@@ -32,19 +34,16 @@ public class SciencePlan {
     private Target.TARGET starsSystem;
 
     @Column
-    private String schedule;
+    private Date date;
 
     @Column
-    private String telescopeLoc;
+    private BaseSciencePlan.TELESCOPELOC telescopeLoc;
 
     @Column
     private String dataProcessingReq;
 
     @Column
-    private String comment;
-
-    @Column
-    private String status;
+    private BaseSciencePlan.STATUS status;
 
     public int getPlanId() {
         return planId;
@@ -79,11 +78,11 @@ public class SciencePlan {
         this.submitter = submitter;
     }
 
-    public float getFunding() {
+    public double getFunding() {
         return funding;
     }
 
-    public void setFunding(float funding) {
+    public void setFunding(double funding) {
         this.funding = funding;
     }
 
@@ -103,19 +102,19 @@ public class SciencePlan {
         this.starsSystem = starsSystem;
     }
 
-    public String getSchedule() {
-        return schedule;
+    public Date getDate() {
+        return date;
     }
 
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getTelescopeLoc() {
+    public BaseSciencePlan.TELESCOPELOC getTelescopeLoc() {
         return telescopeLoc;
     }
 
-    public void setTelescopeLoc(String telescopeLoc) {
+    public void setTelescopeLoc(BaseSciencePlan.TELESCOPELOC telescopeLoc) {
         this.telescopeLoc = telescopeLoc;
     }
 
@@ -127,19 +126,11 @@ public class SciencePlan {
         this.dataProcessingReq = dataProcessingReq;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getStatus() {
+    public BaseSciencePlan.STATUS getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(BaseSciencePlan.STATUS status) {
         this.status = status;
     }
 
@@ -147,15 +138,15 @@ public class SciencePlan {
     public String toString() {
         return "SciencePlan{" +
                 "planId=" + planId +
+                ", planName='" + planName + '\'' +
                 ", creator='" + creator + '\'' +
                 ", submitter='" + submitter + '\'' +
                 ", funding=" + funding +
                 ", objective='" + objective + '\'' +
-                ", starsSystem='" + starsSystem + '\'' +
-                ", schedule='" + schedule + '\'' +
-                ", telescopeLoc='" + telescopeLoc + '\'' +
+                ", starsSystem=" + starsSystem +
+                ", date=" + date +
+                ", telescopeLoc=" + telescopeLoc +
                 ", dataProcessingReq='" + dataProcessingReq + '\'' +
-                ", comment='" + comment + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
