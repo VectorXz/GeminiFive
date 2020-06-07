@@ -201,7 +201,7 @@
       </div>
       <div class="row">
         <div class="col p-2 main-box">
-          <form id="newPlan">
+          <form th:action="@{/addsciplan}" th:object="${SciPlanForm}" method="post">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label" for="name">Name:</label>
               <div class="col-sm-10">
@@ -224,14 +224,14 @@
               <label class="col-sm-2 col-form-label" for="starsystem">Star system:</label>
               <div class="col-sm-10">
                 <select class="form-control" id="starsystem" name="starsystem">
-                  <option th:each="star: ${starsSystem}" th:text="${star}"></option>
+                  <option th:each="star: ${starsSystem}" th:text="${star}" th:value="${star}"></option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label" for="datecreate">Date:</label>
+              <label class="col-sm-2 col-form-label" for="date">Date:</label>
               <div class="col-sm-10">
-                <input type="date" class="form-control" id="datecreate" name="datecreate">
+                <input type="date" class="form-control" id="date" name="date">
               </div>
             </div>
             <div class="form-group row">
@@ -244,8 +244,7 @@
               <label class="col-sm-2 col-form-label" for="location">Location:</label>
               <div class="col-sm-10">
                 <select class="form-control" id="location" name="location">
-                  <option value="hawaii">Hawaii</option>
-                  <option value="Chile">Chile</option>
+                  <option th:each="loc: ${location}" th:text="${loc}" th:value="${loc}"></option>
                 </select>
               </div>
             </div>
@@ -262,9 +261,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label" for="filequality">File Quality:</label>
+              <label class="col-sm-2 col-form-label" for="quality">File Quality:</label>
               <div class="col-sm-10">
-                <select class="form-control" id="filequality" name="filequality">
+                <select class="form-control" id="quality" name="quality">
                   <option value="25">25%</option>
                   <option value="50">50%</option>
                   <option value="75">75%</option>
@@ -277,13 +276,13 @@
               <label class="col-sm-2 col-form-label" for="filequality">Color:</label>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="color" id="bw" value="bw" checked>
+                  <input class="form-check-input" type="radio" name="color" id="bw" value="BW" checked>
                   <label class="form-check-label" for="bw">
                     BW
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="color" id="color" value="color">
+                  <input class="form-check-input" type="radio" name="color" id="color" value="COLOR">
                   <label class="form-check-label" for="color">
                     Color
                   </label>
@@ -308,6 +307,7 @@
                 <input type="range" min="1" max="100" value="50" class="custom-range" id="saturation" name="saturation" onchange="updateSaturationInput(this.value);">
               </div>
             </div>
+            <input type="hidden" name="creator" th:value="${#httpServletRequest.remoteUser}">
             <button class="btn btn-primary" type="submit">Create</button>
           </form>
         </div> <!-- div col -->

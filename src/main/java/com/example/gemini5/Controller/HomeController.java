@@ -3,6 +3,8 @@ package com.example.gemini5.Controller;
 import com.example.gemini5.Model.SciencePlan;
 import com.example.gemini5.Repository.SciencePlanRepository;
 import edu.gemini.app.ocs.controller.VirtualTelescopeHandler;
+import edu.gemini.app.ocs.model.BaseSciencePlan;
+import edu.gemini.app.ocs.model.DataProcRequirement;
 import edu.gemini.app.ocs.model.VirtualTelescope;
 import jparsec.ephem.Target;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,8 @@ public class HomeController {
     public String getCreateSciPlan(Model model) {
         // return login.html
         model.addAttribute("starsSystem", Target.TARGET.values());
+        model.addAttribute("color", DataProcRequirement.COLOR_TYPE.values());
+        model.addAttribute("location", BaseSciencePlan.TELESCOPELOC.values());
         return "createsciplan";
     }
 
