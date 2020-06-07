@@ -1,19 +1,21 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <!-- Required meta tags -->
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
     <style>
         /*
         * Sidebar
         */
+
         .sidebar {
             position: fixed;
             top: 0;
@@ -132,7 +134,7 @@
 
     </style>
 
-    <title>View science plan</title>
+    <title>Gemini-5 : Submit Science plan</title>
 </head>
 
 <body>
@@ -169,13 +171,13 @@
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/homeast/">
+                        <a class="nav-link active" href="#">
                             <span data-feather="home"></span>
                             My science plan <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/testsciplan/">
+                        <a class="nav-link" href="#">
                             <span data-feather="home"></span>
                             Test science plan
                         </a>
@@ -196,25 +198,20 @@
             </div>
         </nav>
 
-        <!-- Main section start -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
             <div class="row">
                 <div class="col content-box">
-                    <h1 class="heading-txt" th:text="${plan.getPlanName()}"></h1>
+                    <h1 class="heading-txt">Test Successful</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col p-2 content-box main-box">
-                    <p>PlanID : <span th:text="${plan.getPlanId()}"></span></p>
-                    <p>Plan Name: <span th:text="${plan.getPlanName()}"></span></p>
-                    <p>Plan Creator: <span th:text="${plan.getCreator()}"></span></p>
-                    <p>Funding: <span th:text="${plan.getFunding()}"></span></p>
-                    <p>Objective: <span th:text="${plan.getObjective()}"></span></p>
-                    <p>Stars System: <span th:text="${plan.getStarsSystem()}"></span></p>
-                    <p>Date: <span th:text="${plan.getDate()}"></span></p>
-                    <p>Telescope Location: <span th:text="${plan.getTelescopeLoc()}"></span></p>
-                    <p>Data Processing Requirement: <span th:text="${plan.getDataProcessingReq()}"></span></p>
-                    <p>Submitter: <span th:text="${plan.getSubmitter()}"></span></p>
+            <div class="row mt-5">
+                <div class="col content-box" th:each="sciPlan: ${allSciPlans}">
+                    <h3 class="heading-txt">Science Plan: <span th:text="${sciPlan.getPlanId()}"></span></h3>
+                    <div class="mt-4">
+
+                        <p><b>Tested Science plan:</b></p>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block" style="background-color: #9a4ef1;" value="submitSciplan">Submit the Science plan</button>
+                    </div>
                 </div>
             </div>
         </main>

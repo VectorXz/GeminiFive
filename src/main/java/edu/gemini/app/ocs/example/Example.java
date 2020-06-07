@@ -46,7 +46,6 @@ public class Example {
         I created MySciencePlan that inherits from the OCS BaseSciencePlan and
         MyObservingProgram that inherits from the OCS BaseObservingProgram.
          */
-
         MySciencePlan mySP = new MySciencePlan();
         mySP.setPlanNo(3);
         mySP.setCreator("Morakot Choetkiertikul");
