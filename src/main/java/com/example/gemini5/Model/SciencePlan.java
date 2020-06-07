@@ -1,5 +1,8 @@
 package com.example.gemini5.Model;
 
+import edu.gemini.app.ocs.model.BaseSciencePlan;
+import jparsec.ephem.Target;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,7 +29,7 @@ public class SciencePlan {
     private String objective;
 
     @Column
-    private String starsSystem;
+    private Target.TARGET starsSystem;
 
     @Column
     private String schedule;
@@ -92,11 +95,11 @@ public class SciencePlan {
         this.objective = objective;
     }
 
-    public String getStarsSystem() {
+    public Target.TARGET getStarsSystem() {
         return starsSystem;
     }
 
-    public void setStarsSystem(String starsSystem) {
+    public void setStarsSystem(Target.TARGET starsSystem) {
         this.starsSystem = starsSystem;
     }
 
@@ -155,5 +158,16 @@ public class SciencePlan {
                 ", comment='" + comment + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public BaseSciencePlan toBaseSciencePlan() {
+        BaseSciencePlan temp = new BaseSciencePlan();
+        temp.setPlanNo(this.getPlanId());
+        temp.setCreator(this.getCreator());
+        temp.setSubmitter(this.getSubmitter());
+        temp.setFundingInUSD(this.getFunding());
+        temp.setObjectives(this.getObjective());
+        temp.setStarSystem(Target.TARGET.MARS);
+        return temp;
     }
 }

@@ -171,13 +171,13 @@
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="/homeast/">
                                 <span data-feather="home"></span>
                                 My science plan <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/testsciplan/">
                                 <span data-feather="home"></span>
                                 Test science plan
                             </a>
@@ -207,16 +207,16 @@
                 <div class="row mt-5">
                     <div class="col-md-4 p-2">
                         <div class="col content-box py-5 text-center h-100">
-                            <a class="btn btn-dark btn-circle" href="#" role="button"><i class="fas fa-plus"></i></a>
+                            <a class="btn btn-dark btn-circle" href="/createsciplan" role="button"><i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <!-- For each science plan -->
                     <div class="col-md-4 p-2" th:each="sciPlan: ${allSciPlans}">
                         <div class="col content-box py-5 text-center">
                             <i class="fas fa-scroll font-5rem p-2"></i>
-                            <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>
+                            <h2><span class="badge badge-dark" th:text="${sciPlan.getPlanId()}"></span> <span th:text="${sciPlan.getPlanName()}"></span></h2>
                             <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
-                            <a class="stretched-link" th:href="${'viewsciplan/'+sciPlan.getPlanId()}"></a>
+                            <a class="stretched-link" th:href="${'/viewsciplan/'+sciPlan.getPlanId()}"></a>
                         </div>
                     </div>
                 </div>
