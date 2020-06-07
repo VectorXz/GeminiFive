@@ -12,8 +12,8 @@ public class SciPlanForm {
     private double funding;
     private String objective;
     private Target.TARGET starsystem;
-    private String date;
-    private Time time;
+    private String startdate;
+    private String enddate;
     private BaseSciencePlan.TELESCOPELOC location;
     private DataProcRequirement.TYPE filetype;
     private double quality;
@@ -63,20 +63,20 @@ public class SciPlanForm {
         this.objective = objective;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartdate() {
+        return startdate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
     }
 
-    public Time getTime() {
-        return time;
+    public String getEnddate() {
+        return enddate;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
     }
 
     public BaseSciencePlan.TELESCOPELOC getLocation() {

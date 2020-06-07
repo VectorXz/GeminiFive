@@ -171,15 +171,15 @@
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link" href="/homeast/">
                             <span data-feather="home"></span>
-                            My science plan <span class="sr-only">(current)</span>
+                            My science plan
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link active" href="/testsciplan/">
                             <span data-feather="home"></span>
-                            Test science plan
+                            Test science plan <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -201,16 +201,19 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
             <div class="row">
                 <div class="col content-box">
-                    <h1 class="heading-txt">Test Successful</h1>
+                    <h1 class="heading-txt" th:text="${result} ? 'Test successful' : 'Test failed!'"></h1>
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col content-box" th:each="sciPlan: ${allSciPlans}">
-                    <h3 class="heading-txt">Science Plan: <span th:text="${sciPlan.getPlanId()}"></span></h3>
+                <div class="col content-box">
+                    <h3 class="heading-txt">Science Plan: <span th:text="${sciPlan.getPlanName()}"></span></h3>
                     <div class="mt-4">
 
-                        <p><b>Tested Science plan:</b></p>
-                        <button type="button" class="btn btn-secondary btn-lg btn-block" style="background-color: #9a4ef1;" value="submitSciplan">Submit the Science plan</button>
+                        <p><b>Tested Science plan:</b> <b th:class="${result} ? 'text-success' : 'text-danger'" th:text="${result} ? 'Successful' : 'Failed'"></b></p>
+                        <a role="button" class="btn btn-secondary btn-lg btn-block" style="background-color: #9a4ef1;"
+                            th:href="${result} ? '/submitsciplan/'+${sciPlan.getPlanId()} : '/editsciplan/'+${sciPlan.getPlanId()}"
+                            th:text="${result} ? 'Submit Science Plan' : 'Edit Science Plan'"></a>
+                        <a role="button" class="btn btn-secondary btn-lg btn-block" th:if="${result == true}" th:href="'/editsciplan/'+${sciPlan.getPlanId()}">Edit Science Plan</a>
                     </div>
                 </div>
             </div>

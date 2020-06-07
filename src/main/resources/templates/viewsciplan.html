@@ -205,16 +205,23 @@
             </div>
             <div class="row">
                 <div class="col p-2 content-box main-box">
-                    <p>PlanID : <span th:text="${plan.getPlanId()}"></span></p>
-                    <p>Plan Name: <span th:text="${plan.getPlanName()}"></span></p>
-                    <p>Plan Creator: <span th:text="${plan.getCreator()}"></span></p>
-                    <p>Funding: <span th:text="${plan.getFunding()}"></span></p>
-                    <p>Objective: <span th:text="${plan.getObjective()}"></span></p>
-                    <p>Stars System: <span th:text="${plan.getStarsSystem()}"></span></p>
-                    <p>Date: <span th:text="${plan.getDate()}"></span></p>
-                    <p>Telescope Location: <span th:text="${plan.getTelescopeLoc()}"></span></p>
-                    <p>Data Processing Requirement: <span th:text="${plan.getDataProcessingReq()}"></span></p>
-                    <p>Submitter: <span th:text="${plan.getSubmitter()}"></span></p>
+                    <p><b>PlanID :</b> <span th:text="${plan.getPlanId()}"></span></p>
+                    <p><b>Plan Name:</b> <span th:text="${plan.getPlanName()}"></span></p>
+                    <p><b>Plan Creator:</b> <span th:text="${plan.getCreator()}"></span></p>
+                    <p><b>Funding:</b> <span th:text="${plan.getFunding()}"></span></p>
+                    <p><b>Objective:</b> <span th:text="${plan.getObjective()}"></span></p>
+                    <p><b>Stars System:</b> <span th:text="${plan.getStarsSystem()}"></span></p>
+                    <p><b>Start Date:</b> <span th:text="${plan.getStartDate()}"></span></p>
+                    <p><b>End Date:</b> <span th:text="${plan.getEndDate()}"></span></p>
+                    <p><b>Telescope Location:</b> <span th:text="${plan.getTelescopeLoc()}"></span></p>
+                    <h5 class="mt-5"><b>Data Processing Requirement</b></h5>
+                    <p><b>File Type : </b> <span th:text="${filetype}"></span></p>
+                    <p><b>File Quality : </b> <span th:text="${filequality}"></span></p>
+                    <p><b>File Color : </b> <span th:text="${filecolor}"></span></p>
+                    <p><b>File Contrast : </b> <span th:text="${filecontrast}"></span></p>
+                    <p><b>File Brightness : </b> <span th:text="${filebrightness}"></span></p>
+                    <p><b>File Saturation : </b> <span th:text="${filesaturation}"></span></p>
+                    <p><b>Submitter:</b> <span th:text="${plan.getSubmitter() != null} ? ${plan.getSubmitter()} : 'Unassigned'"></span></p>
                 </div>
             </div>
         </main>

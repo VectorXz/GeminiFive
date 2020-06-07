@@ -1,15 +1,16 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <!-- Required meta tags -->
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
     <style>
         /*
         * Sidebar
@@ -133,7 +134,7 @@
 
     </style>
 
-    <title>View science plan</title>
+    <title>Gemini-5 : Interactive Observing</title>
 </head>
 
 <body>
@@ -170,13 +171,13 @@
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link " href="/homeast/">
+                        <a class="nav-link" href="/homeast/">
                             <span data-feather="home"></span>
                             My science plan
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/homeast/">
+                        <a class="nav-link active" href="/testsciplan/">
                             <span data-feather="home"></span>
                             Test science plan <span class="sr-only">(current)</span>
                         </a>
@@ -197,25 +198,44 @@
             </div>
         </nav>
 
-        <!-- Main section start -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
             <div class="row">
                 <div class="col content-box">
-                    <h1 class="heading-txt" th:text="${'Selected : '+plan.getPlanName()}"></h1>
+                    <h1 class="heading-txt">Operate Interactive Observing (Virtual Telescope)</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col p-2 content-box main-box">
-                    <p>PlanID : <span th:text="${plan.getPlanId()}"></span></p>
-                    <p>Plan Name: <span th:text="${plan.getPlanName()}"></span></p>
-                    <p>Plan Creator: <span th:text="${plan.getCreator()}"></span></p>
-                    <p>Funding: <span th:text="${plan.getFunding()}"></span></p>
-                    <p>Objective: <span th:text="${plan.getObjective()}"></span></p>
-                    <p>Stars System: <span th:text="${plan.getStarsSystem()}"></span></p>
-                    <p>Schedule <span th:text="${plan.getSchedule()}"></span></p>
-                    <p>Telescope Location: <span th:text="${plan.getTelescopeLoc()}"></span></p>
-                    <p>Data Processing Requirement: <span th:text="${plan.getDataProcessingReq()}"></span></p>
-                    <p>Submitter: <span th:text="${plan.getSubmitter()}"></span></p>
+            <div class="row mt-5">
+                <div class="col content-box">
+                    <h3 class="heading-txt">Science Plan: <span th:text="${plan.getPlanId()+' : '+plan.getPlanName()}"></span></h3>
+                    <div class="mt-4">
+                        <p><b>Virtual Telescope Status:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${vt != null} ? 'Available' : 'Unavailable'"></b></p>
+                        <p><b>Uploaded Science Plan:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${plan != null} ? 'Successfully Uploaded' : 'Failed to upload'"></b></p>
+                        <a role="button" class="btn btn-secondary btn-lg btn-block" style="background-color: #9a4ef1;" th:href="'/testresult/'+${plan.getPlanId()}">Start Testing via Virtual Telescope</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col content-box">
+                    <h3 class="heading-txt">Plan Details</h3>
+                    <div class="mt-4">
+                        <p><b>PlanID :</b> <span th:text="${plan.getPlanId()}"></span></p>
+                        <p><b>Plan Name:</b> <span th:text="${plan.getPlanName()}"></span></p>
+                        <p><b>Plan Creator:</b> <span th:text="${plan.getCreator()}"></span></p>
+                        <p><b>Funding:</b> <span th:text="${plan.getFunding()}"></span></p>
+                        <p><b>Objective:</b> <span th:text="${plan.getObjective()}"></span></p>
+                        <p><b>Stars System:</b> <span th:text="${plan.getStarsSystem()}"></span></p>
+                        <p><b>Start Date:</b> <span th:text="${plan.getStartDate()}"></span></p>
+                        <p><b>End Date:</b> <span th:text="${plan.getEndDate()}"></span></p>
+                        <p><b>Telescope Location:</b> <span th:text="${plan.getTelescopeLoc()}"></span></p>
+                        <h5 class="mt-5"><b>Data Processing Requirement</b></h5>
+                        <p><b>File Type : </b> <span th:text="${filetype}"></span></p>
+                        <p><b>File Quality : </b> <span th:text="${filequality}"></span></p>
+                        <p><b>File Color : </b> <span th:text="${filecolor}"></span></p>
+                        <p><b>File Contrast : </b> <span th:text="${filecontrast}"></span></p>
+                        <p><b>File Brightness : </b> <span th:text="${filebrightness}"></span></p>
+                        <p><b>File Saturation : </b> <span th:text="${filesaturation}"></span></p>
+                        <p><b>Submitter:</b> <span th:text="${plan.getSubmitter() != null} ? ${plan.getSubmitter()} : 'Unassigned'"></span></p>
+                    </div>
                 </div>
             </div>
         </main>
