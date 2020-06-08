@@ -308,7 +308,7 @@
               </div>
             </div>
             <input type="hidden" name="creator" th:value="${#httpServletRequest.remoteUser}">
-            <button class="btn btn-primary" type="submit">Create</button>
+            <button id="create" class="btn btn-primary" type="submit">Create</button>
           </form>
         </div> <!-- div col -->
         </div> <!-- div row -->
@@ -327,6 +327,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
 </script>
+<!-- SweetAlert2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.2/dist/sweetalert2.all.min.js"></script>
 <script>
   function updateContrastInput(val) {
     document.getElementById('contrastval').innerText=val;
@@ -337,6 +339,16 @@
   function updateSaturationInput(val) {
     document.getElementById('saturationval').innerText=val;
   }
+  // createbutton = document.getElementById('create').addEventListener('click', (e) => {
+  //   e.preventDefault()
+  //   Swal.fire({
+  //     title: "Success!",
+  //     text: "Redirecting in 2 seconds.",
+  //     type: "success",
+  //   }, function(){
+  //     window.location.href = "http://localhost:8080/homeast/";
+  //   });
+  // })
 </script>
 </body>
 

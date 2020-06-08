@@ -106,8 +106,7 @@ public class SciencePlanController {
     }
 
     @RequestMapping(value = "/addsciplan", method = RequestMethod.POST)
-    public @ResponseBody
-    String add(@ModelAttribute(name="SciPlanForm") SciPlanForm SciPlanForm, Model model) {
+    public String add(@ModelAttribute(name="SciPlanForm") SciPlanForm SciPlanForm, Model model) {
         String name = SciPlanForm.getName();
         double funding = SciPlanForm.getFunding();
         String objective = SciPlanForm.getObjective();
@@ -115,11 +114,11 @@ public class SciencePlanController {
         String startdatestr = SciPlanForm.getStartdate();
         String enddatestr = SciPlanForm.getEnddate();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        Date sdate = null;
-        Date edate = null;
+        Date startdate = null;
+        Date enddate = null;
         try {
-            sdate = df.parse(startdatestr);
-            edate = df.parse(enddatestr);
+            startdate = df.parse(startdatestr);
+            enddate = df.parse(enddatestr);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -137,15 +136,19 @@ public class SciencePlanController {
         tmp.setFunding(funding);
         tmp.setObjective(objective);
         tmp.setStarsSystem(starsSystem);
-        tmp.setStartDate(sdate);
-        tmp.setEndDate(edate);
+        tmp.setStartDate(startdate);
+        tmp.setEndDate(enddate);
         tmp.setTelescopeLoc(location);
         String dataProcReq = filetype+","+quality+","+color+","+contrast+","+brightness+","+saturation;
         tmp.setDataProcessingReq(dataProcReq);
         tmp.setCreator(creator);
         tmp.setStatus(BaseSciencePlan.STATUS.COMPLETE);
 
+        // add model to show the SciencePlan in view
+        model.addAttribute("plan", tmp);
+
+        // Save science plan in the repository
         sciencePlanRepository.save(tmp);
-        return "Added!";
+        return "createsuccess";
     }
 }

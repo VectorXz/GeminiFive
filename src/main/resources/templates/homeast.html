@@ -214,7 +214,7 @@
                     <div class="col-md-4 p-2" th:each="sciPlan: ${allSciPlans}">
                         <div class="col content-box py-5 text-center">
                             <i class="fas fa-scroll font-5rem p-2"></i>
-                            <h2><span class="badge badge-dark" th:text="${sciPlan.getPlanId()}"></span> <span th:text="${sciPlan.getPlanName()}"></span></h2>
+                            <h3><span class="badge badge-dark" th:text="${sciPlan.getPlanId()}"></span> <span th:text="${sciPlan.getPlanName()}"></span></h3>
                             <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
                             <a class="stretched-link" th:href="${'/viewsciplan/'+sciPlan.getPlanId()}"></a>
                         </div>

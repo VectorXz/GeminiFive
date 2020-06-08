@@ -9,5 +9,4 @@ public class Gemini5Application {
     public static void main(String[] args) {
         SpringApplication.run(Gemini5Application.class, args);
     }
-
 }
