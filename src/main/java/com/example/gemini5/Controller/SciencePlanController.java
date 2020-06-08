@@ -110,7 +110,7 @@ public class SciencePlanController {
         model.addAttribute("location", BaseSciencePlan.TELESCOPELOC.values());
         model.addAttribute("plan", sciencePlanRepository.findByPlanId(id));
         String startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sciencePlanRepository.findByPlanId(id).getStartDate());
-        String endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sciencePlanRepository.findByPlanId(id).getStartDate());
+        String endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sciencePlanRepository.findByPlanId(id).getEndDate());
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         String[] data = sciencePlanRepository.findByPlanId(id).getDataProcessingReq().split(",");
