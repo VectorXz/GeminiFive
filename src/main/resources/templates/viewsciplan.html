@@ -201,6 +201,9 @@
             <div class="row">
                 <div class="col content-box">
                     <h1 class="heading-txt" th:text="${plan.getPlanName()}"></h1>
+                    <span th:if="${plan.getStatus().toString() == 'COMPLETE'}" class="badge badge-secondary">COMPLETED</span>
+                    <span th:if="${plan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-primary">SUBMITTED</span>
+                    <span th:if="${plan.getStatus().toString() == 'RUNNING'}" class="badge badge-success">RUNNING</span>
                 </div>
             </div>
             <div class="row">

@@ -212,10 +212,13 @@
                     </div>
                     <!-- For each science plan -->
                     <div class="col-md-4 p-2" th:each="sciPlan: ${allSciPlans}">
-                        <div class="col content-box py-5 text-center">
+                        <div class="col content-box py-5 text-center h-100">
                             <i class="fas fa-scroll font-5rem p-2"></i>
                             <h3><span class="badge badge-dark" th:text="${sciPlan.getPlanId()}"></span> <span th:text="${sciPlan.getPlanName()}"></span></h3>
                             <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
+                            <p><span th:if="${sciPlan.getStatus().toString() == 'COMPLETE'}" class="badge badge-secondary">COMPLETED</span>
+                                <span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-primary">SUBMITTED</span>
+                                <span th:if="${sciPlan.getStatus().toString() == 'RUNNING'}" class="badge badge-success">RUNNING</span></p>
                             <a class="stretched-link" th:href="${'/viewsciplan/'+sciPlan.getPlanId()}"></a>
                         </div>
                     </div>
