@@ -51,6 +51,13 @@ public class SciencePlanController {
         return "viewsciplan";
     }
 
+    // Mapping for science observer
+    @GetMapping("/approvesciplan/{id}")
+    public String getApproveSciPlan(@PathVariable("id") Integer id, Model model) {
+        return "reviewSubmitSci";
+    }
+
+    // TODO
     @GetMapping("/editsciplan/{id}")
     public String getEditSciPlanById(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("plan", sciencePlanRepository.findByPlanId(id));
@@ -64,6 +71,14 @@ public class SciencePlanController {
         return "editsciplan";
     }
 
+    @GetMapping("/submitsciplan/{id}")
+    @ResponseBody
+    public String getSubmitSciPlan(@PathVariable("id") Integer id, Model model) {
+        SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        selected.setStatus(BaseSciencePlan.STATUS.SUBMITTED);
+        sciencePlanRepository.save(selected);
+        return "Submitted!";
+    }
 
     @RequestMapping(value = "/testsciplan", method = RequestMethod.GET)
     public String getTestSciPlan(Model model) {

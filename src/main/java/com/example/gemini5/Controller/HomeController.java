@@ -18,12 +18,6 @@ public class HomeController {
     @Autowired
     private SciencePlanRepository sciPlanRepository;
 
-    // Mapping for science observer
-    @GetMapping("/homesco/review")
-    public String processForm() {
-        return "reviewSubmitSci";
-    }
-
     @RequestMapping(value = "/homeast", method = RequestMethod.GET)
     public String getHomeAst(Model model) {
         // return login.html
@@ -34,7 +28,7 @@ public class HomeController {
     @RequestMapping(value = "/homesco", method = RequestMethod.GET)
     public String getHomeSco(Model model) {
         // return login.html
-        model.addAttribute("allSciPlans", sciPlanRepository.findByStatus("submitted"));
+        model.addAttribute("allSciPlans", sciPlanRepository.findByStatus(BaseSciencePlan.STATUS.SUBMITTED));
         return "homesco";
     }
 
