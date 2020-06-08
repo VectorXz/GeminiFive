@@ -1,5 +1,6 @@
 package com.example.gemini5.Controller;
 
+import com.example.gemini5.Gemini5Application;
 import com.example.gemini5.Model.AddForm;
 import com.example.gemini5.Model.SciPlanForm;
 import com.example.gemini5.Model.SciencePlan;
@@ -12,6 +13,8 @@ import edu.gemini.app.ocs.model.DataProcRequirement;
 import edu.gemini.app.ocs.model.VirtualTelescope;
 import jparsec.ephem.Target;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,12 +75,21 @@ public class SciencePlanController {
     }
 
     @GetMapping("/submitsciplan/{id}")
-    @ResponseBody
     public String getSubmitSciPlan(@PathVariable("id") Integer id, Model model) {
         SciencePlan selected = sciencePlanRepository.findByPlanId(id);
         selected.setStatus(BaseSciencePlan.STATUS.SUBMITTED);
-        sciencePlanRepository.save(selected);
-        return "Submitted!";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        selected.setSubmitter(username);
+        Gemini5Application.mainOCS.submitSciencePlan(selected.toBaseSciencePlan());
+        if(sciencePlanRepository.save(selected) != null) {
+            model.addAttribute("result", "success");
+            model.addAttribute("plan", selected);
+        } else {
+            model.addAttribute("result", "failed");
+            model.addAttribute("plan", selected);
+        }
+        return "submitsuccess";
     }
 
     @RequestMapping(value = "/testsciplan", method = RequestMethod.GET)
@@ -114,7 +126,19 @@ public class SciencePlanController {
         try {
             boolean success = vt.executeSciencePlan();
             model.addAttribute("result", success);
-        } catch (VirtualTelescope.NoSciencePlanException e) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(formatter.format(date));
+            selected.setTestdate(d);
+            if(success) {
+                selected.setTestresult(SciencePlan.TESTRESULT.SUCCESS);
+            } else if(!success) {
+                selected.setTestresult(SciencePlan.TESTRESULT.FAILED);
+            } else {
+                selected.setTestresult(SciencePlan.TESTRESULT.UNTEST);
+            }
+            sciencePlanRepository.save(selected);
+        } catch (VirtualTelescope.NoSciencePlanException | ParseException e) {
             e.printStackTrace();
         }
         return "submitScienceplan";

@@ -193,12 +193,27 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-4 p-2" th:each="sciPlan: ${allSciPlans}">
-                    <div class="col content-box py-5 text-center">
+                <div class="col-md-4 p-2" th:each="sciPlan: ${allSciPlans}">
+                    <div class="col content-box py-5 text-center h-100">
                         <i class="fas fa-scroll font-5rem p-2"></i>
-                        <h2>Plan ID : <span th:text="${sciPlan.getPlanId()}"></span></h2>
+                        <h3><span class="badge badge-dark" th:text="${sciPlan.getPlanId()}"></span> <span th:text="${sciPlan.getPlanName()}"></span></h3>
                         <p>Created by : <span th:text="${sciPlan.getCreator()}"></span></p>
-                        <a class="stretched-link" th:href="${'viewsciplan/'+sciPlan.getPlanId()}"></a>
+                        <p th:if="${sciPlan.getSubmitter() != null}">Submitter : <span th:text="${sciPlan.getSubmitter()}"></span></p>
+                        <p><span th:if="${sciPlan.getTestresult().toString() == 'UNTEST'}" class="badge badge-secondary">UNTEST</span>
+                            <span th:if="${sciPlan.getTestresult().toString() == 'SUCCESS'}" class="badge badge-primary">TESTED SUCCESS</span>
+                            <span th:if="${sciPlan.getTestresult().toString() == 'FAILED'}" class="badge badge-success">TESTED FAILED</span></p>
+                        <p><span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-primary">SUBMITTED</span>
+                            <span th:unless="${sciPlan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-secondary">UNSUBMIT</span></p>
+                        <p><span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED' and sciPlan.getApproveresult().toString() == 'UNAPPROVE'}"
+                                 class="badge badge-secondary"
+                                 th:text="${sciPlan.getApproveresult()}"></span>
+                            <span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED' and sciPlan.getApproveresult().toString() == 'APPROVED'}"
+                                  class="badge badge-success"
+                                  th:text="${sciPlan.getApproveresult()}"></span>
+                            <span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED' and sciPlan.getApproveresult().toString() == 'REJECTED'}"
+                                  class="badge badge-danger"
+                                  th:text="${sciPlan.getApproveresult()}"></span></p>
+                        <a class="stretched-link" th:href="${'/viewsciplan/'+sciPlan.getPlanId()}"></a>
                     </div>
                 </div>
             </div>

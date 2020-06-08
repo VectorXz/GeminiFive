@@ -1,5 +1,6 @@
 package com.example.gemini5.Model;
 
+import com.example.gemini5.Gemini5Application;
 import edu.gemini.app.ocs.OCS;
 import edu.gemini.app.ocs.model.*;
 import jparsec.ephem.Target;
@@ -14,6 +15,14 @@ import java.util.TimeZone;
 @Entity
 @Table(name = "SciencePlan")
 public class SciencePlan {
+
+    public enum TESTRESULT {
+        UNTEST, SUCCESS, FAILED
+    }
+
+    public enum APPROVERESULT {
+        UNAPPROVE, APPROVED, REJECTED
+    }
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
@@ -51,6 +60,52 @@ public class SciencePlan {
 
     @Column
     private BaseSciencePlan.STATUS status;
+
+    @Column
+    @Enumerated(value = EnumType.STRING)
+    private TESTRESULT testresult = TESTRESULT.UNTEST;
+
+    @Column
+    private Date testdate;
+
+    @Column
+    @Enumerated(value = EnumType.STRING)
+    private APPROVERESULT approveresult = APPROVERESULT.UNAPPROVE;
+
+    @Column
+    private String approver;
+
+    public TESTRESULT getTestresult() {
+        return testresult;
+    }
+
+    public void setTestresult(TESTRESULT testresult) {
+        this.testresult = testresult;
+    }
+
+    public Date getTestdate() {
+        return testdate;
+    }
+
+    public void setTestdate(Date testdate) {
+        this.testdate = testdate;
+    }
+
+    public APPROVERESULT getApproveresult() {
+        return approveresult;
+    }
+
+    public void setApproveresult(APPROVERESULT approveresult) {
+        this.approveresult = approveresult;
+    }
+
+    public String getApprover() {
+        return approver;
+    }
+
+    public void setApprover(String approver) {
+        this.approver = approver;
+    }
 
     public int getPlanId() {
         return planId;
@@ -164,6 +219,10 @@ public class SciencePlan {
                 ", telescopeLoc=" + telescopeLoc +
                 ", dataProcessingReq='" + dataProcessingReq + '\'' +
                 ", status=" + status +
+                ", testresult='" + testresult + '\'' +
+                ", testdate=" + testdate +
+                ", approveresult='" + approveresult + '\'' +
+                ", approver='" + approver + '\'' +
                 '}';
     }
 
@@ -218,7 +277,7 @@ public class SciencePlan {
         cal.setTime(this.getStartDate());
 
         /* GENERATE BASE OBSERVING PROGRAM */
-        OCS ocs = new OCS();
+        OCS ocs = Gemini5Application.mainOCS;
         BaseObservingProgram bop = new BaseObservingProgram();
         bop.setId(this.getPlanId());
         bop.setLoc(ocs.getLocation(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), this.getStarsSystem()));

@@ -199,7 +199,8 @@
                     <i style="font-size: 4rem; color: #4CAF50" class="far fa-check-circle"></i>
                     <div>
                         <h1>Congratulation!</h1>
-                        <h2>You have successfully created science plan</h2>
+                        <h2 th:if="${result == 'success'}">You have successfully submit a science plan</h2>
+                        <h2 th:unless="${result == 'success'}">System failed to submit a science plan!</h2>
                         <!-- successfully created-->
                         <p th:text="'Your science plan : ' + ${plan.getPlanName()}"></p>
                         <a href="/homeast">Back to main menu</a>
