@@ -242,6 +242,7 @@
                         <span th:if="${plan.getStatus().toString() == 'SUBMITTED' and plan.getApproveresult().toString() == 'REJECTED'}"
                               class="badge badge-danger"
                               th:text="${plan.getApproveresult()}"></span></p>
+                    <p th:if="${plan.getApprover() != null}"><b>Approver :</b> <span th:text="${plan.getApprover()}"></span></p>
                 </div>
             </div>
         </main>

@@ -55,9 +55,51 @@ public class SciencePlanController {
     }
 
     // Mapping for science observer
+    @GetMapping("/reviewsciplan/{id}")
+    public String getReviewSciPlan(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("plan", sciencePlanRepository.findByPlanId(id));
+        String[] data = sciencePlanRepository.findByPlanId(id).getDataProcessingReq().split(",");
+        model.addAttribute("filetype", data[0]);
+        model.addAttribute("filequality", data[1]);
+        model.addAttribute("filecolor", data[2]);
+        model.addAttribute("filecontrast", data[3]);
+        model.addAttribute("filebrightness", data[4]);
+        model.addAttribute("filesaturation", data[5]);
+        return "reviewSubmitSci";
+    }
+
     @GetMapping("/approvesciplan/{id}")
     public String getApproveSciPlan(@PathVariable("id") Integer id, Model model) {
-        return "reviewSubmitSci";
+        SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        selected.setApproveresult(SciencePlan.APPROVERESULT.APPROVED);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        selected.setApprover(username);
+        if(sciencePlanRepository.save(selected) != null) {
+            model.addAttribute("result", "success");
+            model.addAttribute("plan", selected);
+        } else {
+            model.addAttribute("result", "failed");
+            model.addAttribute("plan", selected);
+        }
+        return "approvesciplan";
+    }
+
+    @GetMapping("/rejectsciplan/{id}")
+    public String getRejectSciPlan(@PathVariable("id") Integer id, Model model) {
+        SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        selected.setApproveresult(SciencePlan.APPROVERESULT.REJECTED);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        selected.setApprover(username);
+        if(sciencePlanRepository.save(selected) != null) {
+            model.addAttribute("result", "success");
+            model.addAttribute("plan", selected);
+        } else {
+            model.addAttribute("result", "failed");
+            model.addAttribute("plan", selected);
+        }
+        return "rejectsciplan";
     }
 
     // TODO
