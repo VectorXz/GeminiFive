@@ -105,7 +105,14 @@ public class SciencePlanController {
     // TODO
     @GetMapping("/editsciplan/{id}")
     public String getEditSciPlanById(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("starsSystem", Target.TARGET.values());
+        model.addAttribute("color", DataProcRequirement.COLOR_TYPE.values());
+        model.addAttribute("location", BaseSciencePlan.TELESCOPELOC.values());
         model.addAttribute("plan", sciencePlanRepository.findByPlanId(id));
+        String startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sciencePlanRepository.findByPlanId(id).getStartDate());
+        String endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sciencePlanRepository.findByPlanId(id).getStartDate());
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         String[] data = sciencePlanRepository.findByPlanId(id).getDataProcessingReq().split(",");
         model.addAttribute("filetype", data[0]);
         model.addAttribute("filequality", data[1]);
@@ -114,6 +121,63 @@ public class SciencePlanController {
         model.addAttribute("filebrightness", data[4]);
         model.addAttribute("filesaturation", data[5]);
         return "editsciplan";
+    }
+
+    @RequestMapping(value = "/savesciplan/{id}", method = RequestMethod.POST)
+    public String save(@PathVariable("id") Integer id, @ModelAttribute(name="SciPlanForm") SciPlanForm SciPlanForm, Model model) {
+        String name = SciPlanForm.getName();
+        double funding = SciPlanForm.getFunding();
+        String objective = SciPlanForm.getObjective();
+        Target.TARGET starsSystem = SciPlanForm.getStarsystem();
+        String startdatestr = SciPlanForm.getStartdate();
+        String enddatestr = SciPlanForm.getEnddate();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date startdate = null;
+        Date enddate = null;
+        try {
+            startdate = df.parse(startdatestr);
+            enddate = df.parse(enddatestr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        BaseSciencePlan.TELESCOPELOC location = SciPlanForm.getLocation();
+        DataProcRequirement.TYPE filetype = SciPlanForm.getFiletype();
+        double quality = SciPlanForm.getQuality();
+        DataProcRequirement.COLOR_TYPE color = SciPlanForm.getColor();
+        double contrast = SciPlanForm.getContrast();
+        double brightness = SciPlanForm.getBrightness();
+        double saturation = SciPlanForm.getSaturation();
+        String creator = SciPlanForm.getCreator();
+
+        SciencePlan tmp = new SciencePlan();
+        tmp.setPlanId(id);
+        tmp.setPlanName(name);
+        tmp.setFunding(funding);
+        tmp.setObjective(objective);
+        tmp.setStarsSystem(starsSystem);
+        tmp.setStartDate(startdate);
+        tmp.setEndDate(enddate);
+        tmp.setTelescopeLoc(location);
+        String dataProcReq = filetype+","+quality+","+color+","+contrast+","+brightness+","+saturation;
+        tmp.setDataProcessingReq(dataProcReq);
+        tmp.setCreator(creator);
+        tmp.setStatus(BaseSciencePlan.STATUS.COMPLETE);
+        tmp.setApproveresult(SciencePlan.APPROVERESULT.UNAPPROVE);
+        tmp.setApprover(null);
+        tmp.setTestresult(SciencePlan.TESTRESULT.UNTEST);
+        tmp.setTestdate(null);
+        tmp.setCreator(creator);
+
+        // add model to show the SciencePlan in view
+        model.addAttribute("plan", tmp);
+
+        // Save science plan in the repository
+        if(sciencePlanRepository.save(tmp) != null) {
+            model.addAttribute("result", "success");
+        } else {
+            model.addAttribute("result", "failed");
+        }
+        return "saveresult";
     }
 
     @GetMapping("/submitsciplan/{id}")

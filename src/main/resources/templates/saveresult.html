@@ -14,6 +14,7 @@
         /*
         * Sidebar
         */
+
         .sidebar {
             position: fixed;
             top: 0;
@@ -121,13 +122,8 @@
             padding: 16px;
         }
 
-        .btn-circle {
-            border-radius: 50%;
-            padding: 3rem;
-        }
-
-        .font-5rem {
-            font-size: 5rem;
+        .col-form-label {
+            font-weight: bold;
         }
 
     </style>
@@ -197,55 +193,18 @@
         </nav>
 
         <!-- Main section start -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 bg-grey">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="row">
-                <div class="col content-box">
-                    <h1 class="heading-txt" th:text="${plan.getPlanName()}"></h1>
-                    <span th:if="${plan.getStatus().toString() == 'COMPLETE'}" class="badge badge-secondary">COMPLETED</span>
-                    <span th:if="${plan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-primary">SUBMITTED</span>
-                    <span th:if="${plan.getStatus().toString() == 'RUNNING'}" class="badge badge-success">RUNNING</span>
-                    <a role="button" class="btn btn-warning" th:href="${'/editsciplan/'+plan.getPlanId()}">Edit</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col p-2 content-box main-box">
-                    <h5 class="mt-5"><b>Details</b></h5>
-                    <p><b>PlanID :</b> <span th:text="${plan.getPlanId()}"></span></p>
-                    <p><b>Plan Name:</b> <span th:text="${plan.getPlanName()}"></span></p>
-                    <p><b>Plan Creator:</b> <span th:text="${plan.getCreator()}"></span></p>
-                    <p><b>Funding:</b> <span th:text="${plan.getFunding()}"></span></p>
-                    <p><b>Objective:</b> <span th:text="${plan.getObjective()}"></span></p>
-                    <p><b>Stars System:</b> <span th:text="${plan.getStarsSystem()}"></span></p>
-                    <p><b>Start Date:</b> <span th:text="${plan.getStartDate()}"></span></p>
-                    <p><b>End Date:</b> <span th:text="${plan.getEndDate()}"></span></p>
-                    <p><b>Telescope Location:</b> <span th:text="${plan.getTelescopeLoc()}"></span></p>
-                    <h5 class="mt-5"><b>Data Processing Requirement</b></h5>
-                    <p><b>File Type : </b> <span th:text="${filetype}"></span></p>
-                    <p><b>File Quality : </b> <span th:text="${filequality}"></span></p>
-                    <p><b>File Color : </b> <span th:text="${filecolor}"></span></p>
-                    <p><b>File Contrast : </b> <span th:text="${filecontrast}"></span></p>
-                    <p><b>File Brightness : </b> <span th:text="${filebrightness}"></span></p>
-                    <p><b>File Saturation : </b> <span th:text="${filesaturation}"></span></p>
-                    <h5 class="mt-5"><b>Status</b></h5>
-                    <p><span th:if="${plan.getTestresult().toString() == 'UNTEST'}" class="badge badge-secondary">UNTEST</span>
-                        <span th:if="${plan.getTestresult().toString() == 'SUCCESS'}" class="badge badge-primary">TESTED SUCCESS</span>
-                        <span th:if="${plan.getTestresult().toString() == 'FAILED'}" class="badge badge-success">TESTED FAILED</span></p>
-                    <p th:if="${plan.getTestresult().toString() == 'SUCCESS' or plan.getTestresult().toString() == 'FAILED'}"><b>TESTED ON :</b> <span th:text="${plan.getTestdate()}"></span></p>
-                    <p><span th:if="${plan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-primary">SUBMITTED</span>
-                        <span th:unless="${plan.getStatus().toString() == 'SUBMITTED'}" class="badge badge-secondary">UNSUBMIT</span></p>
-                    <p th:if="${plan.getSubmitter() != null}"><b>Submitter :</b> <span th:text="${plan.getSubmitter()}"></span></p>
-                    <p><span th:if="${plan.getStatus().toString() == 'SUBMITTED' and plan.getApproveresult().toString() == 'UNAPPROVE'}"
-                             class="badge badge-secondary"
-                             th:text="${plan.getApproveresult()}"></span>
-                        <span th:if="${plan.getStatus().toString() == 'SUBMITTED' and plan.getApproveresult().toString() == 'APPROVED'}"
-                              class="badge badge-success"
-                              th:text="${plan.getApproveresult()}"></span>
-                        <span th:if="${plan.getStatus().toString() == 'SUBMITTED' and plan.getApproveresult().toString() == 'REJECTED'}"
-                              class="badge badge-danger"
-                              th:text="${plan.getApproveresult()}"></span></p>
-                    <p th:if="${plan.getApprover() != null}"><b>Approver :</b> <span th:text="${plan.getApprover()}"></span></p>
-                    <a role="button" class="btn btn-primary" th:if="${plan.getTestresult().toString() == 'SUCCESS' and plan.getStatus().toString() != 'SUBMITTED'}"
-                    th:href="${'/submitsciplan/'+plan.getPlanId()}">SUBMIT THIS PLAN</a>
+                <div class="col text-center">
+                    <i style="font-size: 4rem; color: #4CAF50" class="far fa-check-circle"></i>
+                    <div>
+                        <h1>Congratulation!</h1>
+                        <h2 th:if="${result == 'success'}">You have successfully saved a science plan</h2>
+                        <h2 th:unless="${result == 'success'}">System failed to save a science plan!</h2>
+                        <!-- successfully created-->
+                        <p th:text="'Your science plan : ' + ${plan.getPlanName()}"></p>
+                        <a href="/homeast">Back to main menu</a>
+                    </div>
                 </div>
             </div>
         </main>
@@ -262,6 +221,29 @@
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+</script>
+<!-- SweetAlert2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.2/dist/sweetalert2.all.min.js"></script>
+<script>
+    function updateContrastInput(val) {
+        document.getElementById('contrastval').innerText=val;
+    }
+    function updateBrightnessInput(val) {
+        document.getElementById('brightnessval').innerText=val;
+    }
+    function updateSaturationInput(val) {
+        document.getElementById('saturationval').innerText=val;
+    }
+    // createbutton = document.getElementById('create').addEventListener('click', (e) => {
+    //   e.preventDefault()
+    //   Swal.fire({
+    //     title: "Success!",
+    //     text: "Redirecting in 2 seconds.",
+    //     type: "success",
+    //   }, function(){
+    //     window.location.href = "http://localhost:8080/homeast/";
+    //   });
+    // })
 </script>
 </body>
 
