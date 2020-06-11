@@ -2,6 +2,7 @@ package com.example.gemini5;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //import com.example.gemini5.Model.User;
@@ -38,6 +39,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User " + username + " was not found in the database");
         }
 
+    }
+
+    private List<GrantedAuthority> getAuthority(String role) {
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
 }

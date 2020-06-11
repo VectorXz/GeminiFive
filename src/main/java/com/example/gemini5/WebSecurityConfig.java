@@ -42,11 +42,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers( "/images/**","/css/**", "/add").permitAll() //Add public path here
+                .antMatchers("/homeast",
+                        "/viewsciplan/**",
+                        "/editsciplan/**",
+                        "/savesciplan/**",
+                        "/createsciplan",
+                        "/addsciplan",
+                        "/testsciplan/**",
+                        "/operatevt/**",
+                        "/testresult/**",
+                        "/submitsciplan/**").hasAnyAuthority("AST")
+                .antMatchers("/homesco",
+                        "/reviewsciplan/**",
+                        "/approvesciplan/**",
+                        "/rejectsciplan/**").hasAnyAuthority("SCO")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successHandler(successHandler())
+                .successHandler(myAuthenticationSuccessHandler())
                 .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
@@ -54,11 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-        handler.setDefaultTargetUrl("/homeast");
-        //handler.setUseReferer(true);
-        return handler;
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
 }

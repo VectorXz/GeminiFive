@@ -1,10 +1,7 @@
 package com.example.gemini5.Controller;
 
 import com.example.gemini5.Gemini5Application;
-import com.example.gemini5.Model.AddForm;
-import com.example.gemini5.Model.SciPlanForm;
-import com.example.gemini5.Model.SciencePlan;
-import com.example.gemini5.Model.User;
+import com.example.gemini5.Model.*;
 import com.example.gemini5.Repository.SciencePlanRepository;
 import com.example.gemini5.Repository.UserRepository;
 import edu.gemini.app.ocs.controller.VirtualTelescopeHandler;
@@ -220,6 +217,29 @@ public class SciencePlanController {
         VirtualTelescope vt = VirtualTelescopeHandler.getVirtualTelescope(VirtualTelescope.NORTH);
         model.addAttribute("vt", vt);
         return "testsciplanID";
+    }
+
+    @RequestMapping(value = "/operatevt/{id}", method = RequestMethod.GET)
+    public String getOperateVt(@PathVariable("id") Integer id, Model model) {
+        SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        model.addAttribute("plan", selected);
+        VirtualTelescope vt = VirtualTelescopeHandler.getVirtualTelescope(VirtualTelescope.NORTH);
+        model.addAttribute("vt", vt);
+        model.addAttribute("cmds", VirtualTelescope.COMMAND.values());
+        return "operatevt";
+    }
+
+    @RequestMapping(value = "/operatevt/{id}", method = RequestMethod.POST)
+    public String postOperateVt(@PathVariable("id") Integer id, @ModelAttribute(name="CommandForm") CommandForm CommandForm, Model model) {
+        VirtualTelescope.COMMAND cmd = VirtualTelescope.COMMAND.valueOf(CommandForm.getCmds().toString());
+        SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        model.addAttribute("plan", selected);
+        VirtualTelescope vt = VirtualTelescopeHandler.getVirtualTelescope(VirtualTelescope.NORTH);
+        model.addAttribute("vt", vt);
+        model.addAttribute("cmds", VirtualTelescope.COMMAND.values());
+        boolean re = vt.executeCommand(cmd);
+        model.addAttribute("result", re);
+        return "operatevt";
     }
 
     @RequestMapping(value = "/testresult/{id}", method = RequestMethod.GET)
