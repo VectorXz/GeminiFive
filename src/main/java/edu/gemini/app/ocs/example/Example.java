@@ -42,6 +42,16 @@ public class Example {
             }
         }
 
+        /* 1.1 Send command to the virtual telescope */
+        vt.executeCommand(VirtualTelescope.COMMAND.START);
+        vt.executeCommand(VirtualTelescope.COMMAND.UP);
+        vt.executeCommand(VirtualTelescope.COMMAND.UP);
+        vt.executeCommand(VirtualTelescope.COMMAND.LEFT);
+        vt.executeCommand(VirtualTelescope.COMMAND.LEFT);
+        vt.executeCommand(VirtualTelescope.COMMAND.FOCUS);
+        vt.executeCommand(VirtualTelescope.COMMAND.TAKE_PHOTO);
+        vt.executeCommand(VirtualTelescope.COMMAND.STOP);
+
         /* 2. Example code to submit a science plan to OCS.
         I created MySciencePlan that inherits from the OCS BaseSciencePlan and
         MyObservingProgram that inherits from the OCS BaseObservingProgram.
@@ -97,6 +107,25 @@ public class Example {
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 }
                 System.out.println("Images = " + images.size());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /* 4. Example code on how to get astronomical data with only links */
+        /* Reuse myPlan from the previous example */
+        /* to be able to go through the next step, I need to manually change the
+        status to COMPLETE. The real system will set this one according to
+        its schedule and execution. */
+        // check the status first. It must be COMPLETE in order to get the astro data
+        if (myPlan.getStatus() == BaseSciencePlan.STATUS.COMPLETE) {
+            AstronomicalData astroData = myPlan.getObservingProgram().getAstroData();
+            try {
+                ArrayList<String> imageLinks = astroData.getAstronomicalDataLinks();
+                for (String link : imageLinks) {
+                    System.out.println(link);
+                }
+                System.out.println("Images = " + imageLinks.size());
             } catch (IOException e) {
                 e.printStackTrace();
             }

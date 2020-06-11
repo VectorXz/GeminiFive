@@ -5,6 +5,9 @@
 
 package edu.gemini.app.ocs.model;
 
+import jparsec.ephem.Functions;
+import jparsec.observer.LocationElement;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,9 +20,14 @@ public class VirtualTelescope {
     private String location;
     private Date installedDate;
     private BaseSciencePlan plan = null;
+    private LocationElement starLocation = new LocationElement();
 
     public static String NORTH = "Gemini North";
     public static String SOUTH = "Gemini South";
+
+    public enum COMMAND {
+        START, UP, DOWN, LEFT, RIGHT, FOCUS, TAKE_PHOTO, STOP
+    }
 
     /**
      * A constructor
@@ -115,6 +123,63 @@ public class VirtualTelescope {
         } else {
             return false;
         }
+    }
+
+    public boolean executeCommand(COMMAND c) {
+        double lat = starLocation.getLatitude();
+        double lon = starLocation.getLongitude();
+        double step = 10;
+        switch (c) {
+            case START:
+                System.out.println("Starting the virtual telescope ...");
+                System.out.println("Current star location: " + printStarLocation(starLocation.get()));
+                break;
+            case STOP:
+                System.out.println("Stopping the virtual telescope ...");
+                break;
+            case UP:
+                if (lat + step <= 90) {
+                    starLocation.setLatitude(lat + step);
+                }
+                System.out.println("Current star location: " + printStarLocation(starLocation.get()));
+                break;
+            case DOWN:
+                if (lat - step >= -90) {
+                    starLocation.setLatitude(lat - step);
+                }
+                System.out.println("Current star location: " + printStarLocation(starLocation.get()));
+                break;
+            case LEFT:
+                if (lon + step <= 180) {
+                    starLocation.setLongitude(lon + step);
+                }
+                System.out.println("Current star location: " + printStarLocation(starLocation.get()));
+                break;
+            case RIGHT:
+                if (lon - step >= -180) {
+                    starLocation.setLongitude(lon - step);
+                }
+                System.out.println("Current star location: " + printStarLocation(starLocation.get()));
+                break;
+            case FOCUS:
+                System.out.println("Auto focusing ...");
+                break;
+            case TAKE_PHOTO:
+                System.out.println("Taking a photo ...");
+                break;
+            default:
+                System.out.println("Invalid command");
+                break;
+        }
+        return true;
+    }
+
+    private double degreeToRadian(double degree) {
+        return (degree * Math.PI)/180;
+    }
+
+    private String printStarLocation(double[] loc) {
+        return "Longitude: " + loc[0] + ", latitude: " + loc[1] + ", radius: " + loc[2];
     }
 
     public String getName() {

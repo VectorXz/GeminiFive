@@ -27,6 +27,12 @@ public class OCS {
         populateSciencePlans();
     }
 
+    public OCS(boolean createMockData) {
+        if( createMockData ) {
+            populateSciencePlans();
+        }
+    }
+
     private void populateSciencePlans() {
         // create a dummy science plans and add to the list
         BaseSciencePlan sp1 = new BaseSciencePlan();

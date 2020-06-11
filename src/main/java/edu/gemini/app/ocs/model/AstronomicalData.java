@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /***
- * Astronomical Data class which is a list of all the images taken by the Gemini observatory
+ * Astronomical Data class which is a list of all the images taken by the Gemini observatory1
  */
 public class AstronomicalData {
     private ArrayList<BufferedImage> images;
+    private int UPPER_BOUND = 6;
+    private int ADDITION = 4;
 
     public AstronomicalData() {
         this.images = new ArrayList<>();
@@ -32,14 +34,23 @@ public class AstronomicalData {
         return this.images;
     }
 
+    public ArrayList<String> getAstronomicalDataLinks() throws IOException {
+        return getAllImageLinks();
+    }
+
     private void getAllImages() throws IOException {
-        int noOfImages = randNum(6) + 4;
+        int noOfImages = randNum(UPPER_BOUND) + ADDITION;
         ArrayList<String> imageList = getListOfImages("references" + File.separator + "images.txt");
         for (int i=0; i<noOfImages; i++) {
             String selectedImgLoc = imageList.remove(randNum(imageList.size()));
             BufferedImage img = (BufferedImage) downloadImage(selectedImgLoc);
             this.images.add(img);
         }
+    }
+
+    private ArrayList<String> getAllImageLinks() throws IOException {
+        int noOfImages = randNum(UPPER_BOUND) + ADDITION;
+        return getListOfImages("references" + File.separator + "images.txt");
     }
 
     private Image downloadImage(String loc) throws IOException {
@@ -63,8 +74,8 @@ public class AstronomicalData {
         String line = reader.readLine();
         while (line != null) {
             // read next line
+			imagePaths.add(line);
             line = reader.readLine();
-            imagePaths.add(line);
         }
         reader.close();
         return imagePaths;
