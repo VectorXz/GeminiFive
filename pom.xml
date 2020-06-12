@@ -95,10 +95,12 @@
 		<dependency>
 			<groupId>cds.astro</groupId>
 			<artifactId>CDS_ASTRO</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>jparsec</groupId>
 			<artifactId>jparsec</artifactId>
+			<version>1.113</version>
 		</dependency>
     </dependencies>
 
