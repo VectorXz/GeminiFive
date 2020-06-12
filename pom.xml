@@ -20,6 +20,14 @@
         <spring.version>5.0.6.RELEASE</spring.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>external</id>
+            <name>External Project Repo</name>
+            <url>file:///${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -87,16 +95,10 @@
 		<dependency>
 			<groupId>cds.astro</groupId>
 			<artifactId>CDS_ASTRO</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/cds.astro.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>jparsec</groupId>
 			<artifactId>jparsec</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jparsec.jar</systemPath>
 		</dependency>
     </dependencies>
 
