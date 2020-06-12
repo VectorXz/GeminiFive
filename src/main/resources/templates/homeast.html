@@ -230,7 +230,7 @@
                                       th:text="${sciPlan.getApproveresult()}"></span>
                                 <span th:if="${sciPlan.getStatus().toString() == 'SUBMITTED' and sciPlan.getApproveresult().toString() == 'REJECTED'}"
                                       class="badge badge-danger"
-                                      th:text="${sciPlan.getApproveresult()}"></span></p>
+                                      th:text="${sciPlan.getApproveresult()+' : '+sciPlan.getRejectnote()}"></span></p>
                             <a class="stretched-link" th:href="${'/viewsciplan/'+sciPlan.getPlanId()}"></a>
                         </div>
                     </div>

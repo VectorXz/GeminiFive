@@ -75,6 +75,17 @@ public class SciencePlan {
     @Column
     private String approver;
 
+    @Column
+    private String rejectnote;
+
+    public String getRejectnote() {
+        return rejectnote;
+    }
+
+    public void setRejectnote(String rejectnote) {
+        this.rejectnote = rejectnote;
+    }
+
     public TESTRESULT getTestresult() {
         return testresult;
     }

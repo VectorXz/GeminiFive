@@ -82,10 +82,12 @@ public class SciencePlanController {
         return "approvesciplan";
     }
 
-    @GetMapping("/rejectsciplan/{id}")
-    public String getRejectSciPlan(@PathVariable("id") Integer id, Model model) {
+    @PostMapping("/rejectsciplan/{id}")
+    public String getRejectSciPlan(@PathVariable("id") Integer id, @ModelAttribute(name="RejectForm") RejectForm RejectForm, Model model) {
+        String reason = RejectForm.getReason();
         SciencePlan selected = sciencePlanRepository.findByPlanId(id);
         selected.setApproveresult(SciencePlan.APPROVERESULT.REJECTED);
+        selected.setRejectnote(reason);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         selected.setApprover(username);

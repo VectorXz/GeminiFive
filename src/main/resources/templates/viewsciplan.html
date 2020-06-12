@@ -242,7 +242,7 @@
                               th:text="${plan.getApproveresult()}"></span>
                         <span th:if="${plan.getStatus().toString() == 'SUBMITTED' and plan.getApproveresult().toString() == 'REJECTED'}"
                               class="badge badge-danger"
-                              th:text="${plan.getApproveresult()}"></span></p>
+                              th:text="${plan.getApproveresult()+' : '+plan.getRejectnote()}"></span></p>
                     <p th:if="${plan.getApprover() != null}"><b>Approver :</b> <span th:text="${plan.getApprover()}"></span></p>
                     <a role="button" class="btn btn-primary" th:if="${plan.getTestresult().toString() == 'SUCCESS' and plan.getStatus().toString() != 'SUBMITTED'}"
                     th:href="${'/submitsciplan/'+plan.getPlanId()}">SUBMIT THIS PLAN</a>

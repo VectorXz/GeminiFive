@@ -190,7 +190,9 @@
                 <div class="col content-box">
                     <h1 class="heading-txt" th:text="${'Reviewing : '+plan.getPlanName()}"></h1>
                     <a role="button" class="btn btn-success" th:href="${'/approvesciplan/'+plan.getPlanId()}">Approve</a>
-                    <a role="button" class="btn btn-danger" th:href="${'/rejectsciplan/'+plan.getPlanId()}">Reject</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">
+                        Reject
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -234,6 +236,29 @@
         </main>
     </div> <!-- row -->
 </div> <!-- container fluid -->
+
+<!-- Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Input reason:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form th:action="${'/rejectsciplan/'+plan.getPlanId()}" th:object="${RejectForm}" method="post">
+                <div class="modal-body">
+                    <input name="reason" class="form-control" type="text" id="reason" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
