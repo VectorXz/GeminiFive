@@ -4,6 +4,7 @@ import com.example.gemini5.Gemini5Application;
 import com.example.gemini5.Model.*;
 import com.example.gemini5.Repository.SciencePlanRepository;
 import com.example.gemini5.Repository.UserRepository;
+import com.example.gemini5.SciencePlanCreator;
 import edu.gemini.app.ocs.controller.VirtualTelescopeHandler;
 import edu.gemini.app.ocs.model.BaseSciencePlan;
 import edu.gemini.app.ocs.model.DataProcRequirement;
@@ -187,7 +188,8 @@ public class SciencePlanController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         selected.setSubmitter(username);
-        Gemini5Application.mainOCS.submitSciencePlan(selected.toBaseSciencePlan());
+        SciencePlanCreator scp = new SciencePlanCreator();
+        Gemini5Application.mainOCS.submitSciencePlan(scp.create(selected));
         if(sciencePlanRepository.save(selected) != null) {
             model.addAttribute("result", "success");
             model.addAttribute("plan", selected);
@@ -273,7 +275,8 @@ public class SciencePlanController {
         SciencePlan selected = sciencePlanRepository.findByPlanId(id);
         model.addAttribute("sciPlan", selected);
         VirtualTelescope vt = VirtualTelescopeHandler.getVirtualTelescope(VirtualTelescope.NORTH);
-        vt.setSciencePlan(selected.toBaseSciencePlan());
+        SciencePlanCreator scp = new SciencePlanCreator();
+        vt.setSciencePlan(scp.create(selected));
         try {
             boolean success = vt.executeSciencePlan();
             model.addAttribute("result", success);
