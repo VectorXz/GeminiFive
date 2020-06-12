@@ -215,7 +215,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col content-box">
-                    <h3 class="heading-txt">Science Plan: <span th:text="${plan.getPlanId()+' : '+plan.getPlanName()}"></span></h3>
+                    <h3 class="heading-txt"><span th:text="${'Operate Virtual Telescope'}"></span></h3>
                     <div class="mt-4">
                         <form th:action="${'/operatevt/'+plan.getPlanId()}" method="post">
                             <p th:if="${result}" class="text-success">Operate Success!</p>
