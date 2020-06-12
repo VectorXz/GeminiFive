@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -208,6 +209,28 @@ public class SciencePlanController {
     public String getTestSciPlanById(@PathVariable("id") Integer id, Model model) {
         // return login.html
         SciencePlan selected = sciencePlanRepository.findByPlanId(id);
+        Date startDate = selected.getStartDate();
+        Date endDate = selected.getEndDate();
+        boolean conflict = false;
+        for (SciencePlan s: sciencePlanRepository.findAll()) {
+            if(s.getPlanId() == selected.getPlanId()) {
+                continue;
+            }
+            Date targetStartDate = s.getStartDate();
+            Date targetEndDate = s.getEndDate();
+            if(startDate.before(targetEndDate) && endDate.after(targetStartDate)) {
+                conflict = true;
+                System.out.println("conflict!"+s.getPlanName());
+                model.addAttribute("conflictPlan", s.getPlanName());
+                break;
+            }
+        }
+        if(conflict) {
+            model.addAttribute("schedule", "conflict");
+        } else {
+            System.out.println("no conflict");
+            model.addAttribute("schedule", "pass");
+        }
         model.addAttribute("plan", selected);
         String[] data = selected.getDataProcessingReq().split(",");
         model.addAttribute("filetype", data[0]);

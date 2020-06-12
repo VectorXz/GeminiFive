@@ -208,6 +208,15 @@
                 <div class="col content-box">
                     <h3 class="heading-txt">Science Plan: <span th:text="${plan.getPlanId()+' : '+plan.getPlanName()}"></span></h3>
                     <div class="mt-4">
+                        <p><b>Virtual Telescope Status:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${vt != null} ? 'Available' : 'Unavailable'"></b></p>
+                        <p><b>Uploaded Science Plan:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${plan != null} ? 'Successfully Uploaded' : 'Failed to upload'"></b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col content-box">
+                    <h3 class="heading-txt">Science Plan: <span th:text="${plan.getPlanId()+' : '+plan.getPlanName()}"></span></h3>
+                    <div class="mt-4">
                         <form th:action="${'/operatevt/'+plan.getPlanId()}" method="post">
                             <p th:if="${result}" class="text-success">Operate Success!</p>
                             <div class="form-group row">

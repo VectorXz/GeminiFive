@@ -210,7 +210,8 @@
                     <div class="mt-4">
                         <p><b>Virtual Telescope Status:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${vt != null} ? 'Available' : 'Unavailable'"></b></p>
                         <p><b>Uploaded Science Plan:</b> <b th:class="${plan != null} ? 'text-success' : 'text-danger'" th:text="${plan != null} ? 'Successfully Uploaded' : 'Failed to upload'"></b></p>
-                        <a role="button" class="btn btn-secondary btn-lg btn-block" style="background-color: #9a4ef1;" th:href="'/operatevt/'+${plan.getPlanId()}">Start Operate Virtual Telescope</a>
+                        <p><b>Schedule:</b> <b th:class="${schedule == 'pass'} ? 'text-success' : 'text-danger'" th:text="${schedule == 'pass'} ? 'No conflict' : ${'Conflict with plan : '+conflictPlan.toString()}"></b></p>
+                        <a role="button" style="background-color: #9a4ef1;" th:href="'/operatevt/'+${plan.getPlanId()}" th:class="${(vt == null or plan == null or schedule == 'conflict') ? 'btn btn-secondary btn-lg btn-block disabled' : 'btn btn-secondary btn-lg btn-block'}">Start Operate Virtual Telescope</a>
                     </div>
                 </div>
             </div>
